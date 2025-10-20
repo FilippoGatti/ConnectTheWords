@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Connect the Words</title>
+        <link href="game-style.css" type="text/css" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <div class="top-bar">
+            <div id="score-display" class="points"></div>
+            <div id="difficulty-selection" class="difficulty-selection">
+                <label for="difficulty-sel">Difficulty: </label>
+                <select name="difficulty" id="difficulty-sel">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="title">
+            <h1>Connect the Words</h1>
+        </div>
+
+        <div id="game-container" class="game-container">
+            <div id="btn-columns" class="btn-columns">
+                <div id="english-column" class="english-column"></div>
+                <div id="italian-column" class="italian-column"></div>
+            </div>
+        </div>
+
+        <div id="final-msg" class="final-msg"></div>
+
+    <script src="game-data.js"></script>
+	<script src="game-script.js"></script>
+
+    </body>
+</html>
