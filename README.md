@@ -1,14 +1,14 @@
 # Connect The Words
 
-This is a game to help people studying English or Italian words, to improve their vocabulary.
+This is a vocabulary matching game designed to help users learn and improve their English or Italian word knowledge.
 
-The english words were taen from The New General Service List (NGSL - https://www.newgeneralservicelist.com/new-general-service-list) and then translated with Google.
+The English words are sourced from the New General Service List (NGSL - https://www.newgeneralservicelist.com/new-general-service-list) and translated using Google services.
 
-The other code was written by me to develope e simple but nice (I hope) way to learn.
+The game features 3 different difficulty levels.
+Any time you connect a word with its correct translation, the matched pair is removed and your score increases. The game then automatically loads three new words and shuffles them into the columns.
 
-There ae 3 different difficulty. Any time the you connect a word with his translations the code will select three new words and it put them one by one in the schema.
-The difficulty is that before that it puts them into, it shuffles them, so maybe there aren't all the right connections in the table.
-You have only on life.
+The core challenge is that the new words are shuffled before being placed, meaning the table may not always contain a correct, available match.
+You have only one life: if you make an incorrect connection, the game ends.
 
 -----
 
