@@ -3,12 +3,14 @@ const EASY = 7;
 const MEDIUM = 5;
 const HARD = 3;
 // VARIABLES
-var wordSelected = [];
+var wordSelected = [...data];
+var startingWords = [];
 var wordWaitingList = [];
 var newEngBtns = [];
 var newItaBtns = [];
 var btnClicked = [];
 var points = 0;
+var status = "normal";
 var score = document.getElementById("score-display");
 var difficultySelection = document.getElementById("difficulty-selection");
 var difficulty = document.getElementById("difficulty-sel");
@@ -21,7 +23,8 @@ window.addEventListener("load", () => { populateGame(EASY) });
 
 difficulty.addEventListener("change", (c) => {
     // reset all variables
-    wordSelected.length = 0;
+    wordSelected = [...data];
+    startingWords.length = 0;
     wordWaitingList.length = 0;
     newEngBtns.length = 0;
     newItaBtns.length = 0;
@@ -40,9 +43,9 @@ difficulty.addEventListener("change", (c) => {
 
 function populateGame(val) {
 
-    randomlySelection(wordSelected, val);
+    randomlySelection(startingWords, val);
 
-    buttonCreator(wordSelected);
+    buttonCreator(startingWords);
 
     engColumn.replaceChildren(...newEngBtns);
     itaColumn.replaceChildren(...newItaBtns);
@@ -50,19 +53,40 @@ function populateGame(val) {
     // remove elements from every array
     newEngBtns.length = 0;
     newItaBtns.length = 0;
-    wordSelected.length = 0;
+    startingWords.length = 0;
 
 };
 
 // select a random number (times) of elments from an array (where)
 function randomlySelection(where, times) {
 
-    for (var i=0; i<times; i++) {
+    if (wordSelected.length < times) {
+        // copy all the remaining items
+        wordSelected.forEach((el) => {
+            where.push(el);
 
-        var newWordSelected = data[Math.floor(Math.random()*data.length)];
-        if (newWordSelected !== wordSelected) { where.push(newWordSelected); };
-        
-    }  // END FOR
+            var index = wordSelected.indexOf(el);
+            wordSelected.splice(index, 1);
+
+            status = "winning";
+
+        });
+
+    } else {
+        // do normal stuff
+
+        while (where.length < times) {
+
+            var newWordSelected = wordSelected[Math.floor(Math.random() * wordSelected.length)];
+
+            where.push(newWordSelected);
+
+            var index = wordSelected.indexOf(newWordSelected);
+            wordSelected.splice(index, 1);
+            
+        };  // END WHILE
+
+    };  // END IF
 
 };
 
@@ -120,7 +144,7 @@ function checkClicked(btn) {
                 // restore array
                 btnClicked.length = 0;
                 // prepare (if needed) add new words
-                if (wordWaitingList.length == 0) { addWords() };
+                if (wordWaitingList.length == 0  && status === "normal") { addWords(); } else { checkWin(); };
                 addBtn();
             } else {
                 gameOver();
@@ -132,6 +156,7 @@ function checkClicked(btn) {
 function addWords() {
     // select three new words
     randomlySelection(wordWaitingList, 3);
+    console.log(wordWaitingList);
     // create buttons
     buttonCreator(wordWaitingList);
 };
@@ -168,4 +193,26 @@ function gameOver() {
     // display text message for end game
     gameOverMsg.style.display = "block";
     gameOverMsg.innerText = lostText;
+};
+
+function checkWin() {
+    if (engColumn.querySelectorAll('button').length === 0) {
+
+        // text message for end game
+        var winText = `
+
+            Congratulations!
+
+            You ended up the game!
+
+            Final Score: ${points}
+
+            Refresh the page to play again
+        `;
+        
+        // display text message for end game
+        gameOverMsg.style.display = "block";
+        gameOverMsg.innerText = winText;
+
+    };
 };
